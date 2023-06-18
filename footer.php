@@ -1,5 +1,5 @@
-<div align="center" style="margin-top:30px;"><p>Designed with love by <a href="http://sarutech.com">SARU TECH</a> | www.sarutech.com</p>
-<p>We design Websites, Software and Mobile Apps | Call 07068242918</p></div>
+<div align="center" style="margin-top:30px;"><p>Terima Jasa Jahit Baju Bu Wandi <a href="">Jasa Jahit</a> | www.jasajahit.com</p>
+<p>Aplikasi Informasi Jasa Jahit | Call +628989392975</p></div>
     </div>
     <!-- /#wrapper --> 
 
@@ -9,18 +9,18 @@
 
 
 
-<script src="../js/jquery.autogrow-textarea.js"></script>
-<script src="../js/bootstrap-timepicker.min.js"></script>
-<script src="../js/jquery.maskedinput.min.js"></script>
-<script src="../js/jquery.tagsinput.min.js"></script>
-<script src="../js/jquery.mousewheel.js"></script>
-<script src="../js/select2.min.js"></script>
-<script src="../js/dropzone.min.js"></script>
-<script src="../js/colorpicker.js"></script>
+<script src="js/jquery.autogrow-textarea.js"></script>
+<script src="js/bootstrap-timepicker.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.tagsinput.min.js"></script>
+<script src="js/jquery.mousewheel.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/dropzone.min.js"></script>
+<script src="js/colorpicker.js"></script>
 
 
 
-<script src="../js/custom.js"></script>
+<script src="js/custom.js"></script>
 
 <script>
 jQuery(document).ready(function(){
@@ -98,7 +98,7 @@ jQuery(document).ready(function(){
 
 
 
-<script type="text/javascript" src="../js/jquery.activeNavigation.js"></script>
+<script type="text/javascript" src="js/jquery.activeNavigation.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
     	$(document).activeNavigation(".nav")

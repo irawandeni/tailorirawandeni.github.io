@@ -1,140 +1,116 @@
 <?php
-require_once('../function.php');
-dbconnect();
+if (file_get_contents('function.php') == '') {
+	header('Location: '.'/install/');
+} 
+require_once('function.php');
 session_start();
 
-if (!is_user()) {
-	redirect('index.php');
+if (is_user()) {
+	redirect('home.php');
 }
-
 ?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sign In</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+<style>
+
+.pass {
+width: 100%;
+height: 50px;
+}
+</style>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+    </head>
+
+    <body>
+
+		<!-- Top menu -->
 		
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>ADMIN </strong> Login</h1>
+                        </div>
+                    </div>
+                    <div class="row">
 
-<?php
- $user = $_SESSION['username'];
-$usid = $pdo->query("SELECT id FROM users WHERE username='".$user."'");
-$usid = $usid->fetch(PDO::FETCH_ASSOC);
- $uid = $usid['id'];
- include ('header.php');
- ?>
+                        <div class="col-md-6 col-md-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>Sign In</h3>
+                            		<p>Fill in the form below to get instant access:</p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-user"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom">
+			                    
+								
+								               		
+						<?php if (!empty($_GET['error'])): ?>
+	                              <div class="alert alert-danger alert-dismissable">
+                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>	
+							      <?php echo $_GET['error']?>
+                                  </div>
+                                <?php endif ?>
+								
+								
+								<form role="form" action="signin_post.php" method="post" class="registration-form">
+								
+<div class="form-group">
+<input type="text" name="username" value="admin" class="form-first-name form-control">
+</div>
+<div class="form-group">
+<input type="password" name="password" value="admin" class="pass form-control">
+</div>
 
-
-<?php include('includes/loader.php'); ?>
-
-
-    <!-- styles -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/fullcalendar.css" rel="stylesheet">
-    <link href="lib/colorpicker/css/colorpicker.css" rel="stylesheet">
-    <link href="lib/validation/css/validation.css" rel="stylesheet">
-    
-    <link href="lib/timepicker/jquery-ui-timepicker-addon.css" rel="stylesheet">
-
-   	  <a class="navbar-brand" href="index.php">Calendar</a>
-          <!-- search -->
-          <form class="pull-right" style="margin-top: 5px;" id="search">
-          	<div class="col-lg-12">
-                <div class="input-group">
-                   <input type="text" class="form-control">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                  </span>
+			                        <button type="submit" class="btn"> Submit</button>
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-          </form><br/> <br/>
-      <p><a href="add_event.php" class="btn btn-default pull-right" style="margin-bottom: 20px;">Add Event</a></p>
-       
-      <div class="clearfix"></div>
-        
-      <div class="box">
-        <div class="header"><h4>Calendar</h4></div>
-        <div class="content"> 
-            <div id="calendar"></div>
-        </div> 
-      </div>
+            </div>
+            
+        </div>
 
-    
-	<!-- Modal View Event -->
-    <div id="cal_viewModal" class="modal fade" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-			<a href="#" class="btn btn-danger" data-option="remove">Delete</a>
-            <a href="#" class="btn btn-info" data-option="edit">Edit</a>
-            <a href="#" class="btn btn-warning" data-option="export">Export</a>
-        	<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-    <!-- Modal Edit Event -->
-    <div id="cal_editModal" class="modal fade" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-			<a href="#" class="btn btn-primary" data-option="save">Save Changes</a>
-        	<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-    <!-- Modal QuickSave Event -->
-    <div id="cal_quickSaveModal" class="modal fade" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <a href="#" class="btn btn-primary" data-option="quickSave">Add Event</a>
-        	<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-        
-    <!-- javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/fullcalendar.js"></script>
-    <script src="js/gcal.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery.calendar.js"></script>
-    <script src="lib/colorpicker/bootstrap-colorpicker.js"></script>
-    <script src="lib/timepicker/bootstrap-timepicker.js"></script>
-    <script src="lib/validation/jquery.validationEngine.js"></script>
-    <script src="lib/validation/jquery.validationEngine-en.js"></script>
-    <script src="js/custom.js"></script>
-    
-    <!-- call calendar plugin -->
-    <script type="text/javascript">
-		$().FullCalendarExt({
-			calendarSelector: '#calendar',
-			// weekType: 'agendaWeek',
-			// dayType: 'agendaDay',
-			ajaxJsonFetch: 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic',
-			gcal: true
-		});
-	</script>
 
- 
-<?php
- include ('footer.php');
- ?>
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/retina-1.1.0.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+</html>
